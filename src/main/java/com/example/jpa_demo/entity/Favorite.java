@@ -12,7 +12,7 @@ public class Favorite {
     @Column(name = "id")
     private Integer id;
     @Column(name = "user_id")
-    private String userId;
+    private Integer userId;
     @Column(name = "movie_id")
-    private String movieId;
+    private Integer movieId;
 }
