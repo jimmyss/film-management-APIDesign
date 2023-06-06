@@ -28,6 +28,7 @@ public class WebConfig implements WebMvcConfigurer {
         WHITE_LIST.add("/v3/api-docs/**");
     }
 
+
     // 跨域配置
     @Override
     public void addCorsMappings(CorsRegistry registry) {

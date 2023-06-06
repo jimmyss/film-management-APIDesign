@@ -55,6 +55,7 @@ public class UserService {
             return BaseResponse.error("已有相同账号");
         }
 
+
         User user = new User(null, username, ciphertext);
         try {
             userRepository.save(user);
