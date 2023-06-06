@@ -19,7 +19,7 @@ public class WebConfig implements WebMvcConfigurer {
         WHITE_LIST.add("/api/movies/*");
         WHITE_LIST.add("/api/favorites/*");
         WHITE_LIST.add("/api/history/*");
-        WHITE_LIST.add("/api/rating");
+        WHITE_LIST.add("/api/ratings");
         WHITE_LIST.add("/api/reviews");
         WHITE_LIST.add("/api/ratings-reviews/*");
         WHITE_LIST.add("/error");
