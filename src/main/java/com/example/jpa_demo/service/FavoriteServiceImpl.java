@@ -22,8 +22,8 @@ public class FavoriteServiceImpl implements FavoriteService{
     public List<Favorite> listAll(Integer userId){
         return favoriteRepository.queryFavByUser_id(userId);
     }
-    public int countAll(Integer userId){
-        return favoriteRepository.queryFavByUser_id(userId).size();
+    public int countAll(Integer movieId){
+        return favoriteRepository.queryFavByMovie_id(movieId).size();
     }
     @Override
     public boolean delete(Integer id){

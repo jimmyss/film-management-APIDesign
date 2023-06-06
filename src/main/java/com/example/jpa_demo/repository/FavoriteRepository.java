@@ -13,6 +13,8 @@ public interface FavoriteRepository extends JpaRepository<Favorite, Integer> {
     @Query(value = "select * from add_favorite where user_id = ?", nativeQuery = true)
     List<Favorite> queryFavByUser_id(Integer userId);
 
+    @Query(value = "select * from add_favorite where movie_id = ?", nativeQuery = true)
+    List<Favorite> queryFavByMovie_id(Integer movieId);
 
 
 //    @Modifying

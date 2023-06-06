@@ -14,23 +14,23 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 @Validated
 @RestController
-@RequestMapping("/fav")
+@RequestMapping("/api/favorites")
 public class FavController {
     @Autowired
     private FavoriteServiceImpl favoriteService;
-    @GetMapping ("/list/{userId}")
-    public BaseResponse<List<Favorite>> FavoriteList(@PathVariable  Integer userId){
+    @GetMapping ("/list/{user_id}")
+    public BaseResponse<List<Favorite>> FavoriteList(@PathVariable(value = "user_id")  Integer userId){
         System.out.println(userId);
         return BaseResponse.success(favoriteService.listAll(userId));
     }
 
-    @GetMapping("/delete/{id}")
+    @DeleteMapping("/del/{id}")
     public BaseResponse<Boolean> deleteFav(@PathVariable Integer id) {
         System.out.println(id);
         return BaseResponse.success(true);
     }
 
-    @PostMapping("/add")
+    @PostMapping("")
     public BaseResponse<Favorite> addFav(@Valid @RequestBody FavoriteVO favoriteVO) {
         Favorite favorite = new Favorite();
         favorite.setMovieId(favoriteVO.getMovieId());
@@ -39,9 +39,9 @@ public class FavController {
         return BaseResponse.success(favoriteService.add(favorite));
     }
 
-    @GetMapping("/count/{userId}")
-    public BaseResponse<Integer> countFav(@PathVariable Integer userId) {
-        System.out.println(userId);
-        return BaseResponse.success(favoriteService.countAll(userId));
+    @GetMapping("/count/{movie_id}")
+    public BaseResponse<Integer> countFav(@PathVariable(value = "movie_id") Integer movieId) {
+        System.out.println(movieId);
+        return BaseResponse.success(favoriteService.countAll(movieId));
     }
 }

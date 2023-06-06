@@ -7,7 +7,7 @@ import java.util.List;
 public interface FavoriteService {
     Favorite add(Favorite favorite);
     List<Favorite> listAll(Integer userId);
-    int countAll(Integer userId);
+    int countAll(Integer movieId);
     boolean delete(Integer id);
 
 }
