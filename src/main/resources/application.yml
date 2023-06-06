@@ -1,0 +1,25 @@
+server:
+  port: 8800
+
+spring:
+  jpa:
+    hibernate:
+      #     ???????????
+      ddl-auto: update
+      #    ?????SQL
+    show-sql: true
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/API?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&serverTimezone=GMT
+    username: root
+    password: 111111
+    driver-class-name: com.mysql.cj.jdbc.Driver
+#mybatis:
+#  type-aliases-package: com.example.demo.entity  # ??
+#  mapper-locations: classpath:mapper/*Mapper.xml
+
+logging:
+  file:
+    name: log/log.log
+  level:
+    root: info
+    com.example: debug
