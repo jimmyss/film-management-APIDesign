@@ -48,6 +48,12 @@ public class UserService {
         //md5加密储存
         String plainPassword = password;
         String ciphertext = DigestUtils.md5DigestAsHex(plainPassword.getBytes());
+        User user1 = userRepository.findUserByUsernameAndPassword(username, ciphertext);
+
+        //没查到返回登录失败
+        if(user1 != null) {
+            return BaseResponse.error("已有相同账号");
+        }
 
         User user = new User(null, username, ciphertext);
         try {
