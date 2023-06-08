@@ -11,6 +11,7 @@ public class User implements Serializable {
     @GeneratedValue(strategy= GenerationType.IDENTITY)//strategy=GenerationType.IDENTITY 自增长
     private Integer user_id;
     @Column(name="user_name")
+<<<<<<< HEAD
     private String user_name;
     @Column(name="password")
     private String password;
@@ -33,6 +34,31 @@ public class User implements Serializable {
 
     public String getPassword() {
         return password;
+=======
+    private String username;
+    @Column(name="password")
+    private String password;
+
+    public Integer getId() {
+        return user_id;
+    }
+
+    public User(Integer user_id, String username, String password) {
+        this.user_id = user_id;
+        this.username = username;
+        this.password = password;
+    }
+
+    public User() {
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUser_name(String user_name) {
+        this.username = user_name;
+>>>>>>> zrt
     }
 
     public void setPassword(String password) {
@@ -43,7 +69,11 @@ public class User implements Serializable {
     public String toString() {
         return "User{" +
                 "user_id=" + user_id +
+<<<<<<< HEAD
                 ", user_name='" + user_name + '\'' +
+=======
+                ", user_name='" + username + '\'' +
+>>>>>>> zrt
                 ", password='" + password + '\'' +
                 '}';
     }
