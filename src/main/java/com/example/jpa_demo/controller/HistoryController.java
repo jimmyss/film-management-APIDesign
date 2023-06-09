@@ -1,10 +1,8 @@
 package com.example.jpa_demo.controller;
 
 import com.example.jpa_demo.component.BaseResponse;
-import com.example.jpa_demo.entity.Favorite;
 import com.example.jpa_demo.entity.History;
 import com.example.jpa_demo.service.HistoryServiceImpl;
-import com.example.jpa_demo.vo.FavoriteVO;
 import com.example.jpa_demo.vo.HistoryVO;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
