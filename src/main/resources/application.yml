@@ -15,9 +15,6 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   api-docs:
     enabled: true
-#mybatis:
-#  type-aliases-package: com.example.demo.entity  # ??
-#  mapper-locations: classpath:mapper/*Mapper.xml
 
 logging:
   file:
