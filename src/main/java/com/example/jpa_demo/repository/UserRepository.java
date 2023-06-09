@@ -3,6 +3,7 @@ package com.example.jpa_demo.repository;
 import com.example.jpa_demo.entity.User;
 <<<<<<< HEAD
 import org.springframework.data.jpa.repository.JpaRepository;
+<<<<<<< HEAD
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 =======
 import jakarta.transaction.Transactional;
@@ -16,6 +17,10 @@ import java.util.List;
 @Repository
 <<<<<<< HEAD
 @EnableJpaRepositories()
+=======
+
+
+>>>>>>> zrc
 public interface UserRepository extends JpaRepository<User, Integer>{
 }
 =======

@@ -1,9 +1,10 @@
 package com.example.jpa_demo.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.io.Serializable;
-
+@Data
 @Entity
 @Table(name="user")
 public class User implements Serializable {
@@ -16,6 +17,7 @@ public class User implements Serializable {
     @Column(name="password")
     private String password;
 
+<<<<<<< HEAD
     public Integer getUser_id() {
         return user_id;
     }
@@ -65,6 +67,8 @@ public class User implements Serializable {
         this.password = password;
     }
 
+=======
+>>>>>>> zrc
     @Override
     public String toString() {
         return "User{" +
