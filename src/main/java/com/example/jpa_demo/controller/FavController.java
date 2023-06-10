@@ -19,8 +19,8 @@ import java.util.List;
 public class FavController {
     @Autowired
     private FavoriteServiceImpl favoriteService;
-    @GetMapping ("/list/{user_id}")
-    public BaseResponse<List<Favorite>> FavoriteList(@RequestHeader("Authorization") String tokenBearer, @PathVariable(value = "user_id")  Integer userId){
+    @GetMapping ("/list/{userId}")
+    public BaseResponse<List<Favorite>> FavoriteList(@RequestHeader("Authorization") String tokenBearer, @PathVariable(value = "userId")  Integer userId){
         String token = tokenBearer.substring(7,  tokenBearer.length());
         var token_id = JwtToken.decode(token).getClaim("id").asString();
         if(Integer.valueOf(token_id).intValue() != userId){
@@ -63,8 +63,8 @@ public class FavController {
         return BaseResponse.success(favoriteService.add(favorite));
     }
 
-    @GetMapping("/count/{movie_id}")
-    public BaseResponse<Integer> countFav(@PathVariable(value = "movie_id") Integer movieId) {
+    @GetMapping("/count/{movieId}")
+    public BaseResponse<Integer> countFav(@PathVariable(value = "movieId") Integer movieId) {
         System.out.println(movieId);
         return BaseResponse.success(favoriteService.countAll(movieId));
     }
