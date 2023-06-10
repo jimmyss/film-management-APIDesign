@@ -9,5 +9,7 @@ public interface FavoriteService {
     List<Favorite> listAll(Integer userId);
     int countAll(Integer movieId);
     boolean delete(Integer id);
+    List<Favorite> listById(Integer id);
+    List<Favorite> listByUserIdAndMovieId(Integer userId, Integer movieId);
 
 }

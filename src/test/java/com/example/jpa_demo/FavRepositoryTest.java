@@ -22,13 +22,14 @@ public class FavRepositoryTest {
     @Test
     public void testInsertFav(){
         Favorite favorite = new Favorite();
-        favorite.setUserId("1");
-        favorite.setMovieId("4");
+//        favorite.setUserId("1");
+//        favorite.setMovieId("4");
         System.out.println(this.favoriteRepository.save(favorite));
     }
     @Test
     public void testSearchFav(){
-        System.out.println(this.favoriteRepository.queryFavByUser_id(1));
+//        System.out.println(this.favoriteRepository.queryFavByUserIdAndMovieId(1,3));
+        System.out.println(this.favoriteRepository.queryFavById(4));
     }
     @Test
     public void testCountFav(){

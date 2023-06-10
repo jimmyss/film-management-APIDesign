@@ -33,9 +33,14 @@ public class FavController {
     public BaseResponse<Boolean> deleteFav(@RequestHeader("Authorization") String tokenBearer, @PathVariable Integer id) {
         String token = tokenBearer.substring(7,  tokenBearer.length());
         var token_id = JwtToken.decode(token).getClaim("id").asString();
-        if(Integer.valueOf(token_id).intValue() != id){
+        List<Favorite> fav = favoriteService.listById(id);
+        if(fav.size() == 0){
+            return BaseResponse.error(10001, "该收藏不存在，无法删除");
+        }
+        if(Integer.valueOf(token_id).intValue() != fav.get(0).getUserId()){
             return BaseResponse.error(10000, "无法删除非本用户的收藏");
         }
+
         System.out.println(id);
         return BaseResponse.success(true);
     }
@@ -46,6 +51,10 @@ public class FavController {
         var token_id = JwtToken.decode(token).getClaim("id").asString();
         if(Integer.parseInt(token_id) != favoriteVO.getUserId()){
             return BaseResponse.error(10000, "无法为非当前用户的用户添加收藏");
+        }
+        if(favoriteService.listByUserIdAndMovieId(favoriteVO.getUserId(), favoriteVO.getMovieId()).size() != 0){
+            System.out.println(favoriteService.listByUserIdAndMovieId(favoriteVO.getUserId(), favoriteVO.getMovieId()));
+            return BaseResponse.error(10002, "收藏已存在，无需添加");
         }
         Favorite favorite = new Favorite();
         favorite.setMovieId(favoriteVO.getMovieId());
