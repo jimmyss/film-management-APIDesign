@@ -22,8 +22,8 @@ public class FavRepositoryTest {
     @Test
     public void testInsertFav(){
         Favorite favorite = new Favorite();
-        favorite.setUserId("1");
-        favorite.setMovieId("4");
+        favorite.setUserId(Integer.valueOf("1"));
+        favorite.setMovieId(Integer.valueOf("4"));
         System.out.println(this.favoriteRepository.save(favorite));
     }
     @Test

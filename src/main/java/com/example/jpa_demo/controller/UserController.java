@@ -1,9 +1,9 @@
 package com.example.jpa_demo.controller;
 
-<<<<<<< HEAD
-public class UserController {
-}
-=======
+
+import com.example.jpa_demo.service.UserService;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.example.jpa_demo.component.BaseResponse;
 import com.example.jpa_demo.entity.User;
 import com.example.jpa_demo.service.UserService;
@@ -38,4 +38,3 @@ public class UserController {
 
 }
 
->>>>>>> zrt

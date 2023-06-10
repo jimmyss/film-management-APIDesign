@@ -18,11 +18,7 @@ import java.util.HashMap;
 @Slf4j
 public class JwtToken {
     public static final String TOKEN_HEADER = "Authorization";
-<<<<<<< HEAD
     private static final int AMOUNT = 7 * 24;
-=======
-    private static final int AMOUNT = 7 * 24;//token有效时间
->>>>>>> zrt
 //    private static HashMap<String, String> userInfo = new HashMap<>();
     /**
      * 生成token
@@ -62,21 +58,12 @@ public class JwtToken {
         // decode the token, save userinfo
         var id = JwtToken.decode(token).getClaim("id").asString();
         var username = JwtToken.decode(token).getClaim("username").asString();
-<<<<<<< HEAD
         var email = JwtToken.decode(token).getClaim("email").asString();
         var role = JwtToken.decode(token).getClaim("role").asString();
         UserInfo.set("id", id);
         UserInfo.set("username", username);
         UserInfo.set("email", email);
         UserInfo.set("role", role);
-=======
-        //var email = JwtToken.decode(token).getClaim("email").asString();
-        //var role = JwtToken.decode(token).getClaim("role").asString();
-        UserInfo.set("id", id);
-        UserInfo.set("username", username);
-        //UserInfo.set("email", email);
-        //UserInfo.set("role", role);
->>>>>>> zrt
     }
 
     /**
