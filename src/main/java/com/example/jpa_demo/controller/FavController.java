@@ -3,6 +3,7 @@ package com.example.jpa_demo.controller;
 import com.example.jpa_demo.component.BaseResponse;
 import com.example.jpa_demo.entity.Favorite;
 import com.example.jpa_demo.service.FavoriteServiceImpl;
+import com.example.jpa_demo.util.JwtToken;
 import com.example.jpa_demo.vo.FavoriteVO;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
@@ -19,7 +20,10 @@ public class FavController {
     @Autowired
     private FavoriteServiceImpl favoriteService;
     @GetMapping ("/list/{user_id}")
-    public BaseResponse<List<Favorite>> FavoriteList(@PathVariable(value = "user_id")  Integer userId){
+    public BaseResponse<List<Favorite>> FavoriteList(@RequestHeader("Authorization") String tokenBearer, @PathVariable(value = "user_id")  Integer userId){
+        String token = tokenBearer.substring(7,  tokenBearer.length());
+        var id = JwtToken.decode(token).getClaim("id").asString();
+        System.out.println(id);
         System.out.println(userId);
         return BaseResponse.success(favoriteService.listAll(userId));
     }

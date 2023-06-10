@@ -12,6 +12,7 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/API?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&serverTimezone=GMT
     username: root
     password: zrc1234567
+
     driver-class-name: com.mysql.cj.jdbc.Driver
 #mybatis:
 #  type-aliases-package: com.example.demo.entity  # ??
