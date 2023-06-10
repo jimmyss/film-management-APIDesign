@@ -40,8 +40,6 @@ public class FavController {
         if(Integer.valueOf(token_id).intValue() != fav.get(0).getUserId()){
             return BaseResponse.error(10000, "无法删除非本用户的收藏");
         }
-
-        System.out.println(id);
         return BaseResponse.success(true);
     }
 
@@ -53,19 +51,16 @@ public class FavController {
             return BaseResponse.error(10000, "无法为非当前用户的用户添加收藏");
         }
         if(favoriteService.listByUserIdAndMovieId(favoriteVO.getUserId(), favoriteVO.getMovieId()).size() != 0){
-            System.out.println(favoriteService.listByUserIdAndMovieId(favoriteVO.getUserId(), favoriteVO.getMovieId()));
             return BaseResponse.error(10002, "收藏已存在，无需添加");
         }
         Favorite favorite = new Favorite();
         favorite.setMovieId(favoriteVO.getMovieId());
         favorite.setUserId(favoriteVO.getUserId());
-        System.out.println(favorite);
         return BaseResponse.success(favoriteService.add(favorite));
     }
 
     @GetMapping("/count/{movieId}")
     public BaseResponse<Integer> countFav(@PathVariable(value = "movieId") Integer movieId) {
-        System.out.println(movieId);
         return BaseResponse.success(favoriteService.countAll(movieId));
     }
 }
