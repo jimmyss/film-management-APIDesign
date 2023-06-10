@@ -22,20 +22,31 @@ public class FavController {
     @GetMapping ("/list/{user_id}")
     public BaseResponse<List<Favorite>> FavoriteList(@RequestHeader("Authorization") String tokenBearer, @PathVariable(value = "user_id")  Integer userId){
         String token = tokenBearer.substring(7,  tokenBearer.length());
-        var id = JwtToken.decode(token).getClaim("id").asString();
-        System.out.println(id);
-        System.out.println(userId);
+        var token_id = JwtToken.decode(token).getClaim("id").asString();
+        if(Integer.valueOf(token_id).intValue() != userId){
+            return BaseResponse.error(10000, "无法查看非本用户的收藏列表");
+        }
         return BaseResponse.success(favoriteService.listAll(userId));
     }
 
     @DeleteMapping("/del/{id}")
-    public BaseResponse<Boolean> deleteFav(@PathVariable Integer id) {
+    public BaseResponse<Boolean> deleteFav(@RequestHeader("Authorization") String tokenBearer, @PathVariable Integer id) {
+        String token = tokenBearer.substring(7,  tokenBearer.length());
+        var token_id = JwtToken.decode(token).getClaim("id").asString();
+        if(Integer.valueOf(token_id).intValue() != id){
+            return BaseResponse.error(10000, "无法删除非本用户的收藏");
+        }
         System.out.println(id);
         return BaseResponse.success(true);
     }
 
     @PostMapping("")
-    public BaseResponse<Favorite> addFav(@Valid @RequestBody FavoriteVO favoriteVO) {
+    public BaseResponse<Favorite> addFav(@RequestHeader("Authorization") String tokenBearer, @Valid @RequestBody FavoriteVO favoriteVO) {
+        String token = tokenBearer.substring(7,  tokenBearer.length());
+        var token_id = JwtToken.decode(token).getClaim("id").asString();
+        if(Integer.parseInt(token_id) != favoriteVO.getUserId()){
+            return BaseResponse.error(10000, "无法为非当前用户的用户添加收藏");
+        }
         Favorite favorite = new Favorite();
         favorite.setMovieId(favoriteVO.getMovieId());
         favorite.setUserId(favoriteVO.getUserId());
