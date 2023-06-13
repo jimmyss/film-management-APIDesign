@@ -3,6 +3,7 @@ package com.example.jpa_demo.controller;
 import com.example.jpa_demo.component.BaseResponse;
 import com.example.jpa_demo.entity.User;
 import com.example.jpa_demo.service.UserService;
+import com.example.jpa_demo.util.JwtToken;
 import com.example.jpa_demo.vo.UserBaseVO;
 import com.example.jpa_demo.vo.UserRegisterVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +19,10 @@ public class UserController {
     @PostMapping("login")
     BaseResponse login(@RequestBody @Validated UserBaseVO userBaseVO) {
         System.out.println(userBaseVO);
+
         return userService.login(userBaseVO.getUsername(), userBaseVO.getPassword());
     }
+
 
     @PostMapping("/register")
     BaseResponse register(@RequestBody UserRegisterVO userRegisterVO) {

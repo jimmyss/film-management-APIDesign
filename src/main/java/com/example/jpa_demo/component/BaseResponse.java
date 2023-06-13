@@ -21,4 +21,10 @@ public class BaseResponse<T> {
         r.code = -1;
         return r;
     }
+    public static <T> BaseResponse<T> error(Integer code, String msg) {
+        var r = new BaseResponse();
+        r.msg = msg;
+        r.code = code;
+        return r;
+    }
 }

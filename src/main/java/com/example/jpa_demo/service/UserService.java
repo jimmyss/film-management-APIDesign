@@ -30,7 +30,7 @@ public class UserService {
 
         //没查到返回登录失败
         if(user == null) {
-            return BaseResponse.error("登录失败");
+            return BaseResponse.error(1001,"用户名或密码错误");
         }
 
         // token生成
@@ -39,10 +39,12 @@ public class UserService {
         map.put("username", user.getUsername());
 
         String token = JwtToken.create(map);
+        System.out.println();
 
         map.put("token", token);
         return BaseResponse.success(map);
     }
+
 
     public BaseResponse<Map<String, String>> register(String username, String password) {
         //md5加密储存
@@ -50,9 +52,9 @@ public class UserService {
         String ciphertext = DigestUtils.md5DigestAsHex(plainPassword.getBytes());
         User user1 = userRepository.findUserByUsernameAndPassword(username, ciphertext);
 
-        //没查到返回登录失败
+        //相同账号注册失败
         if(user1 != null) {
-            return BaseResponse.error("已有相同账号");
+            return BaseResponse.error(1002,"已有相同账号");
         }
 
 
@@ -60,7 +62,7 @@ public class UserService {
         try {
             userRepository.save(user);
         } catch (Exception e) {
-            return BaseResponse.error("该账号已被注册");
+            return BaseResponse.error("注册失败");
         }
 
         var res = new HashMap<String, String>();

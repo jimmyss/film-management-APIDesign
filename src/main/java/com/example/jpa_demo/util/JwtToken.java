@@ -58,12 +58,10 @@ public class JwtToken {
         // decode the token, save userinfo
         var id = JwtToken.decode(token).getClaim("id").asString();
         var username = JwtToken.decode(token).getClaim("username").asString();
-        //var email = JwtToken.decode(token).getClaim("email").asString();
-        //var role = JwtToken.decode(token).getClaim("role").asString();
+
         UserInfo.set("id", id);
         UserInfo.set("username", username);
-        //UserInfo.set("email", email);
-        //UserInfo.set("role", role);
+
     }
 
     /**
