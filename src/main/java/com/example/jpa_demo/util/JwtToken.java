@@ -18,7 +18,7 @@ import java.util.HashMap;
 @Slf4j
 public class JwtToken {
     public static final String TOKEN_HEADER = "Authorization";
-    private static final int AMOUNT = 7 * 24;
+    private static final int AMOUNT = 7 * 24;//token有效时间
 //    private static HashMap<String, String> userInfo = new HashMap<>();
     /**
      * 生成token
