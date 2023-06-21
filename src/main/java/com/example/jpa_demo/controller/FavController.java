@@ -56,7 +56,7 @@ public class FavController {
         return BaseResponse.success(favoriteService.add(favorite));
     }
 
-    @GetMapping("/movies/")
+    @GetMapping("/movies/{movieId}")
     public BaseResponse<Integer> countFav(@PathVariable(value = "movieId") Integer movieId) {
         return BaseResponse.success(favoriteService.countAll(movieId));
     }
