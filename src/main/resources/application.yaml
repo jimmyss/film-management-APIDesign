@@ -13,6 +13,11 @@ spring:
     username: jimmy
     password : Password123
     driver-class-name: com.mysql.cj.jdbc.Driver
+  springdoc:
+    api-docs:
+      enabled: true
+    swagger-ui:
+      enabled: true
 #mybatis:
 #  type-aliases-package: com.example.demo.entity  # ??
 #  mapper-locations: classpath:mapper/*Mapper.xml

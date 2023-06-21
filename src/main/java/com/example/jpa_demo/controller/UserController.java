@@ -5,13 +5,15 @@ import com.example.jpa_demo.service.UserService;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.jpa_demo.component.BaseResponse;
-import com.example.jpa_demo.entity.User;
 import com.example.jpa_demo.service.UserService;
 import com.example.jpa_demo.vo.UserBaseVO;
 import com.example.jpa_demo.vo.UserRegisterVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/users")
@@ -33,8 +35,5 @@ public class UserController {
 
         return userService.register(username, password);
     }
-
-
-
 }
 

@@ -1,14 +1,20 @@
 package com.example.jpa_demo.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+
+@Data
 @Entity
 @Table(name="user")
+@AllArgsConstructor
 public class User implements Serializable {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)//strategy=GenerationType.IDENTITY 自增长
+    @Column(name="user_id")
     private Integer user_id;
     @Column(name="user_name")
     private String username;
@@ -19,8 +25,7 @@ public class User implements Serializable {
         return user_id;
     }
 
-    public User(Integer user_id, String username, String password) {
-        this.user_id = user_id;
+    public User( String username, String password) {
         this.username = username;
         this.password = password;
     }

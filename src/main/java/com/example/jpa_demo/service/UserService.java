@@ -35,7 +35,7 @@ public class UserService {
 
         // token生成
         var map = new LinkedHashMap<String, String>();
-        //map.put("id", String.valueOf(user.getUsername()));
+        map.put("id", String.valueOf(user.getUser_id()));
         map.put("username", user.getUsername());
 
         String token = JwtToken.create(map);
@@ -56,7 +56,7 @@ public class UserService {
         }
 
 
-        User user = new User(null, username, ciphertext);
+        User user = new User(username, ciphertext);
         try {
             userRepository.save(user);
         } catch (Exception e) {

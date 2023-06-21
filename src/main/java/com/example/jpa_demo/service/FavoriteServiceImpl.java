@@ -36,5 +36,13 @@ public class FavoriteServiceImpl implements FavoriteService{
         }
     }
 
+    @Override
+    public List<Favorite> listById(Integer userId) {
+        return favoriteRepository.queryFavById(userId);
+    }
 
+    @Override
+    public List<Favorite> listByUserIdAndMovieId(Integer userId, Integer movieId) {
+        return favoriteRepository.queryFavByUserIdAndMovieId(userId, movieId);
+    }
 }
