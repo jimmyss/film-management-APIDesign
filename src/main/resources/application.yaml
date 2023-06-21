@@ -9,12 +9,9 @@ spring:
       #    ?????SQL
     show-sql: true
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/api?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&serverTimezone=GMT
-    username: root
-#    password: zrc1234567  //¼Ç×¡ÁË
-#=======
-#    password: 111111
-    password : 74642486
+    url: jdbc:mysql://bj-cynosdbmysql-grp-otbn3asw.sql.tencentcdb.com:24019/api
+    username: jimmy
+    password : Password123
     driver-class-name: com.mysql.cj.jdbc.Driver
 #mybatis:
 #  type-aliases-package: com.example.demo.entity  # ??
@@ -26,6 +23,3 @@ logging:
   level:
     root: info
     com.example: debug
-#=======
-#    com.example: debug
-#>>>>>>> zrt
