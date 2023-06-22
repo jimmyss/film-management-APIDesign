@@ -14,4 +14,20 @@ public class MovieServiceImpl implements MovieService{
     public List<Movie> queryOverviewById(Integer id) {
         return movieRepository.queryMovieOverviewById(id);
     }
+
+    @Override
+    public void deleteById(Integer id) {
+        movieRepository.deleteById(id);
+    }
+
+    @Override
+    public void addMovie(Movie movie) {
+        movieRepository.save(movie);
+    }
+
+    @Override
+    public List<Movie> queryByTitle(String title) {
+        return movieRepository.getMoviesByTitleContains(title);
+    }
+
 }

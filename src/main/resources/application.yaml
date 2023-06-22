@@ -4,9 +4,7 @@ server:
 spring:
   jpa:
     hibernate:
-      #     ???????????
       ddl-auto: update
-      #    ?????SQL
     show-sql: true
   datasource:
     url: jdbc:mysql://bj-cynosdbmysql-grp-otbn3asw.sql.tencentcdb.com:24019/api

@@ -23,6 +23,7 @@ public class WebConfig implements WebMvcConfigurer {
         WHITE_LIST.add("/api/reviews");
         WHITE_LIST.add("/api/ratings-reviews/*");
         WHITE_LIST.add("/error");
+        WHITE_LIST.add("/swagger-ui.html");
         WHITE_LIST.add("/swagger-ui/*");
         WHITE_LIST.add("/swagger-resources/*");
         WHITE_LIST.add("/v3/api-docs/**");
