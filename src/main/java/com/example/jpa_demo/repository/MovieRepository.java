@@ -10,4 +10,6 @@ import java.util.List;
 public interface MovieRepository extends JpaRepository<Movie, Integer> {
     @Query(value = "select * from movie where id = ?", nativeQuery = true)
     List<Movie> queryMovieOverviewById(Integer id);
+
+    List<Movie> getMoviesByTitleContains(String title);
 }
