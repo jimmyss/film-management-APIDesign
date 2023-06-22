@@ -21,6 +21,11 @@ public class TokenInterceptor implements HandlerInterceptor {
         ServletOutputStream os = response.getOutputStream();
         String uri = request.getRequestURI();
 
+        if (uri.startsWith("/api/movies") || uri.startsWith("/api/") && request.getMethod().equals("GET")){
+            return true;
+        }
+
+        request.getMethod().equals("GET");
         try {
             JwtToken.verify(token);
             log.info("in token interceptor, this url is {}, valid", uri);
