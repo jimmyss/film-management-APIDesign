@@ -6,6 +6,7 @@ import com.example.jpa_demo.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -47,7 +48,16 @@ public class CommentServiceImpl implements CommentService{
 
     @Override
     public List<Comment> addOrModifyComment(Comment comment) {
-        commentRepository.save(comment);
+        Optional<Comment> getComment=commentRepository.findCommentByUserIdAndMovieId(comment.getUserId(), comment.getMovieId());
+        if(getComment.isPresent()){
+            getComment.get().setComment(comment.getComment());
+            getComment.get().setRate(comment.getRate());
+            comment.setRate(getComment.get().getRate());
+            comment.setComment(getComment.get().getComment());
+            commentRepository.save(getComment.get());
+        }else {
+            commentRepository.save(comment);
+        }
         List<Comment> comments=new ArrayList<>();
         comments.add(comment);
         return comments;
@@ -56,5 +66,10 @@ public class CommentServiceImpl implements CommentService{
     @Override
     public void getCommentNumByMovieId(Integer movieId) {
 
+    }
+
+    @Override
+    public List<Comment> getCommentsByUserId(Integer userId){
+        return commentRepository.findCommentsByUserId(userId);
     }
 }

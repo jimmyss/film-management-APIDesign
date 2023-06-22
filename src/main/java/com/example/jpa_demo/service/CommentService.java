@@ -13,4 +13,6 @@ public interface CommentService {
     List<Comment> addOrModifyComment(Comment comment);
 
     void getCommentNumByMovieId(Integer movieId);
+
+    List<Comment> getCommentsByUserId(Integer userId);
 }
