@@ -17,7 +17,7 @@ public class HistoryServiceImpl implements HistoryService{
         history1.setUser_id(history.getUser_id());
         history1.setMovie_id(history.getMovie_id());
         history1.setTime(LocalDateTime.now());
-        return historyRepository.save(history);
+        return historyRepository.save(history1);
     }
 
     @Override
@@ -39,6 +39,21 @@ public class HistoryServiceImpl implements HistoryService{
         }catch (Exception e){
             System.out.println("浏览历史不存在");
             return false;
+        }
+    }
+
+    @Override
+    public List<History> listByUserIdAndMovieId(Integer userId, Integer movieId){
+        return historyRepository.queryHistoryByUser_idAndMovie_id(userId, movieId);
+    }
+
+    @Override
+    public History update(History history){
+        try{
+            history.setTime(LocalDateTime.now());
+            return historyRepository.save(history);
+        }catch (Exception e){
+            return null;
         }
     }
 }

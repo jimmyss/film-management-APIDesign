@@ -12,5 +12,7 @@ public interface HistoryService {
     List<History> listAll(Integer userId);
     int countAll(Integer movieId);
     boolean delete(Integer id);
+    List<History> listByUserIdAndMovieId(Integer userId, Integer movieId);
+    History update(History history);
 
 }

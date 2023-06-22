@@ -15,6 +15,8 @@ public interface HistoryRepository extends JpaRepository<History, Integer> {
     @Query(value = "select * from has_history where movie_id = ?", nativeQuery = true)
     List<History> queryHistoryByMovie_id(Integer movieId);
 
+    @Query(value = "select * from has_history where user_id=? and movie_id=?", nativeQuery = true)
+    List<History> queryHistoryByUser_idAndMovie_id(Integer userId, Integer movieId);
 //    @Query
 //    List<History>   queryHistoryByTime(LocalDateTime time)
 }

@@ -4,6 +4,7 @@ import com.example.jpa_demo.component.BaseResponse;
 import com.example.jpa_demo.component.UserInfo;
 import com.example.jpa_demo.entity.Favorite;
 import com.example.jpa_demo.service.FavoriteServiceImpl;
+import com.example.jpa_demo.service.MovieServiceImpl;
 import com.example.jpa_demo.util.JwtToken;
 import com.example.jpa_demo.vo.FavoriteVO;
 import jakarta.validation.Valid;
@@ -20,6 +21,9 @@ import java.util.List;
 public class FavController {
     @Autowired
     private FavoriteServiceImpl favoriteService;
+    @Autowired
+    private MovieServiceImpl movieService;
+
     @GetMapping ("")
     public BaseResponse<List<Favorite>> FavoriteList(@RequestHeader("Authorization") String tokenBearer){
         String id = UserInfo.get("id");
@@ -45,6 +49,9 @@ public class FavController {
     public BaseResponse<Favorite> addFav(@RequestHeader("Authorization") String tokenBearer, @Valid @RequestBody FavoriteVO favoriteVO) {
         String id = UserInfo.get("id");
         String token = tokenBearer.substring(7,  tokenBearer.length());
+        if(movieService.queryOverviewById(favoriteVO.getMovieId()).isEmpty()){
+            return BaseResponse.error(10003, "电影不存在");
+        }
         if(favoriteService.listByUserIdAndMovieId(Integer.valueOf(id), favoriteVO.getMovieId()).size() != 0){
             return BaseResponse.error(10002, "收藏已存在，无需添加");
         }
@@ -56,6 +63,9 @@ public class FavController {
 
     @GetMapping("/movies/{movieId}")
     public BaseResponse<Integer> countFav(@PathVariable(value = "movieId") Integer movieId) {
+        if(movieService.queryOverviewById(movieId).isEmpty()){
+            return BaseResponse.error(10003, "电影不存在");
+        }
         return BaseResponse.success(favoriteService.countAll(movieId));
     }
 }

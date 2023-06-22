@@ -1,5 +1,6 @@
 package com.example.jpa_demo.entity;
 
+import com.example.jpa_demo.component.LocalDateTimeConverter;
 import jakarta.persistence.*;
 import lombok.Cleanup;
 import lombok.Data;
@@ -18,6 +19,7 @@ public class History {
     @Column(name = "Movie_id")
     private Integer movie_id;
     @Column(name = "time")
+    @Convert(converter = LocalDateTimeConverter.class)
     private LocalDateTime time;
 
 }
