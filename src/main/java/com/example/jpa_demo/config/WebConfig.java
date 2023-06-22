@@ -19,11 +19,6 @@ public class WebConfig implements WebMvcConfigurer {
         WHITE_LIST.add("/api/users/login");
         WHITE_LIST.add("/api/users/register");
         WHITE_LIST.add("/api/users/refresh-token");
-        WHITE_LIST.add("/api/favorites/*");
-        WHITE_LIST.add("/api/history/*");
-        WHITE_LIST.add("/api/ratings");
-        WHITE_LIST.add("/api/reviews");
-        WHITE_LIST.add("/api/ratings-reviews/*");
         WHITE_LIST.add("/error");
         WHITE_LIST.add("/swagger-ui.html");
         WHITE_LIST.add("/swagger-ui/*");
