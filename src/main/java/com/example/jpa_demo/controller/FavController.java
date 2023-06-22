@@ -61,9 +61,9 @@ public class FavController {
         return BaseResponse.success(favoriteService.add(favorite));
     }
 
-    @GetMapping("/movies/{movieId}")
-    public BaseResponse<Integer> countFav(@PathVariable(value = "movieId") Integer movieId) {
-        if(movieService.queryOverviewById(movieId).isEmpty()){
+    @GetMapping("/count")
+    public BaseResponse<Integer> countFav(@RequestParam Integer movieId) {
+        if(movieService .queryOverviewById(movieId).isEmpty()){
             return BaseResponse.error(10003, "电影不存在");
         }
         return BaseResponse.success(favoriteService.countAll(movieId));

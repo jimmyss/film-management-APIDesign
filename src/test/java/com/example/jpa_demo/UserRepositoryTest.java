@@ -18,7 +18,6 @@ public class UserRepositoryTest {
 //    @Rollback(false)//取消自动回滚
     public void testInsertUsers(){
         User users = new User();
-        users.setUserName("w");
         users.setPassword("w");
         this.userRepository.save(users);
     }
