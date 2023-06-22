@@ -1,7 +1,10 @@
 package com.example.jpa_demo.config;
 
 import com.example.jpa_demo.component.TokenInterceptor;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -16,7 +19,6 @@ public class WebConfig implements WebMvcConfigurer {
         WHITE_LIST.add("/api/users/login");
         WHITE_LIST.add("/api/users/register");
         WHITE_LIST.add("/api/users/refresh-token");
-        WHITE_LIST.add("/api/movies/*");
         WHITE_LIST.add("/api/favorites/*");
         WHITE_LIST.add("/api/history/*");
         WHITE_LIST.add("/api/ratings");
