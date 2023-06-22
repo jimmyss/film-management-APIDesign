@@ -15,18 +15,19 @@ public class Movie {
     private String imdbId;
     @Column(name = "original_language")
     private String originalLanguage;
-    @Column(name = "overview")
+    @Lob
+    @Column(name = "overview", columnDefinition = "LONGTEXT")
     private String overview;
     @Column(name = "popularity")
-    private float popularity;
+    private Float popularity;
     @Column(name = "poster_path")
     private String posterPath;
     @Column(name = "release_date")
     private String releaseDate;
     @Column(name = "revenue")
-    private int revenue;
+    private Long revenue;
     @Column(name = "runtime")
-    private int runtime;
+    private Integer runtime;
     @Column(name = "title")
     private String title;
 }
