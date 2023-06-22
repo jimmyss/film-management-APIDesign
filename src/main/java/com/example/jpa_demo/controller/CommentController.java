@@ -57,13 +57,25 @@ public class CommentController {
         return BaseResponse.success("删除成功");
     }
 
+    @GetMapping("/all")
+    public BaseResponse<List<Comment>> getComment(
+            @RequestHeader("Authorization") String tokenBearer
+    ){
+        String id= UserInfo.get("id");
+        List<Comment> comment=commentService.getCommentsByUserId(Integer.valueOf(id));
+        if(comment.isEmpty()){
+            return BaseResponse.error(10006, "该用户没有评论任何电影");
+        }
+        return BaseResponse.success(comment);
+    }
+
     @PostMapping("")
-    public BaseResponse commentOnMovie(
+    public BaseResponse commentAndRateOnMovie(
             @RequestBody CommentVO comment,
             @RequestHeader("Authorization") String tokenBearer)
     {
         String id=UserInfo.get("id");
-        if(comment.getComment().isEmpty() && comment.getRate().isNaN()){
+        if(comment.getComment()==null && comment.getRate()==null){
             return BaseResponse.error(10005, "评论和评分不能同时为空");
         }
         if(movieService.findById(comment.getMovieId()).isEmpty()){
@@ -77,4 +89,6 @@ public class CommentController {
                 .build();
         return BaseResponse.success(commentService.addOrModifyComment(finalComment));
     }
+
+
 }
