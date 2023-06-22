@@ -13,4 +13,6 @@ public interface MovieService {
     void addMovie(Movie movie);
 
     List<Movie> queryByTitle(String title);
+
+    List<Movie> findById(Integer movieId);
 }

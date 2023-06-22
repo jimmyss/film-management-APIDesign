@@ -12,4 +12,6 @@ public interface MovieRepository extends JpaRepository<Movie, Integer> {
     List<Movie> queryMovieOverviewById(Integer id);
 
     List<Movie> getMoviesByTitleContains(String title);
+
+    List<Movie> findMovieById(Integer id);
 }

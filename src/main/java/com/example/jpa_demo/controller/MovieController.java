@@ -9,12 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
 @RestController
 @RequestMapping("/api/movies")
 public class MovieController {
     @Autowired
     private MovieServiceImpl movieService;
+
     @GetMapping("/{id}")
     public BaseResponse<List<Movie>> queryById(@PathVariable Integer id){
         System.out.println(id);
