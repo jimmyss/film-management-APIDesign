@@ -37,7 +37,10 @@ public class UserService {
         var map = new LinkedHashMap<String, String>();
         map.put("id", String.valueOf(user.getUser_id()));
         map.put("username", user.getUsername());
-
+        if(user.getRole().equals(1))
+            map.put("role", "admin");
+        else
+            map.put("role", "user");
         String token = JwtToken.create(map);
 
         map.put("token", token);

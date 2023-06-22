@@ -21,7 +21,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("login")
+    @PostMapping("/login")
     BaseResponse login(@RequestBody @Validated UserBaseVO userBaseVO) {
         System.out.println(userBaseVO);
         return userService.login(userBaseVO.getUsername(), userBaseVO.getPassword());

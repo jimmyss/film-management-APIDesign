@@ -20,6 +20,8 @@ public class User implements Serializable {
     private String username;
     @Column(name="password")
     private String password;
+    @Column(name = "role")
+    private Integer role;
 
     public Integer getId() {
         return user_id;
