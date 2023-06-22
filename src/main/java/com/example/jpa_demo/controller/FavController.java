@@ -37,7 +37,7 @@ public class FavController {
         if(Integer.valueOf(token_id).intValue() != fav.get(0).getUserId()){
             return BaseResponse.error(10000, "无法删除非本用户的收藏");
         }
-        Favorite favorite=new Favorite();
+        favoriteService.delete(id);
         return BaseResponse.success(true);
     }
 
