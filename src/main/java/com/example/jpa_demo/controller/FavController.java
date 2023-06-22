@@ -19,17 +19,14 @@ import java.util.List;
 public class FavController {
     @Autowired
     private FavoriteServiceImpl favoriteService;
-    @GetMapping ("/list/{userId}")
-    public BaseResponse<List<Favorite>> FavoriteList(@RequestHeader("Authorization") String tokenBearer, @PathVariable(value = "userId")  Integer userId){
+    @GetMapping ("")
+    public BaseResponse<List<Favorite>> FavoriteList(@RequestHeader("Authorization") String tokenBearer){
         String token = tokenBearer.substring(7,  tokenBearer.length());
         var token_id = JwtToken.decode(token).getClaim("id").asString();
-        if(Integer.valueOf(token_id).intValue() != userId){
-            return BaseResponse.error(10000, "无法查看非本用户的收藏列表");
-        }
-        return BaseResponse.success(favoriteService.listAll(userId));
+        return BaseResponse.success(favoriteService.listAll(Integer.valueOf(token_id).intValue()));
     }
 
-    @DeleteMapping("/del/{id}")
+    @DeleteMapping("/{id}")
     public BaseResponse<Boolean> deleteFav(@RequestHeader("Authorization") String tokenBearer, @PathVariable Integer id) {
         String token = tokenBearer.substring(7,  tokenBearer.length());
         var token_id = JwtToken.decode(token).getClaim("id").asString();
@@ -59,7 +56,7 @@ public class FavController {
         return BaseResponse.success(favoriteService.add(favorite));
     }
 
-    @GetMapping("/count/{movieId}")
+    @GetMapping("/movies/{movieId}")
     public BaseResponse<Integer> countFav(@PathVariable(value = "movieId") Integer movieId) {
         return BaseResponse.success(favoriteService.countAll(movieId));
     }
