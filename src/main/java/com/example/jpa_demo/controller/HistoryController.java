@@ -52,8 +52,8 @@ public class HistoryController {
         return BaseResponse.success(historyService.add(history));
     }
 
-    @GetMapping("/movies/{movie_id}")
-    public BaseResponse<Integer> count(@PathVariable(value = "movie_id") Integer movieId) {
+    @GetMapping("/count")
+    public BaseResponse<Integer> count(@RequestParam Integer movieId) {
         return BaseResponse.success(historyService.countAll(movieId));
     }
 }
