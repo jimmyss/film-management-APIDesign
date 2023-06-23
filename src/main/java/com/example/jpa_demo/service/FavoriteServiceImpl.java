@@ -16,10 +16,7 @@ public class FavoriteServiceImpl implements FavoriteService{
     private FavoriteRepository favoriteRepository;
     @Override
     public Favorite add(Favorite favorite){
-        Favorite favorite1 = new Favorite();
-        favorite1.setUserId(favorite.getUserId());
-        favorite1.setMovie(favorite.getMovie());
-        return favoriteRepository.save(favorite1);
+        return favoriteRepository.save(favorite);
     }
 
     @Override

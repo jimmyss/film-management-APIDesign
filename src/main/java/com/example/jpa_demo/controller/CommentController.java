@@ -40,6 +40,9 @@ public class CommentController {
             @RequestParam(required = false, defaultValue = "10")
             @Min(value = 1, message = "Page size should be a positive number") Integer size
     ) {//获取某电影的评论
+        if (movieService.findById(movieId).isEmpty()) {
+            return BaseResponse.error(10001, "电影不存在");
+        }
         Page<Comment> comment = commentService.getCommentByMovieId(movieId, page, size);
         return BaseResponse.success(comment);
     }
