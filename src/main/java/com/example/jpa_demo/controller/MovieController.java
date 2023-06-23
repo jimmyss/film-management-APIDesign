@@ -60,7 +60,7 @@ public class MovieController {
                                                @RequestParam(required = false, defaultValue = "0")
                                                @Min(value = 0, message = "页码必须大于等于 0") Integer page,
                                                @RequestParam(required = false, defaultValue = "10")
-                                               @Min(value = 0, message = "页面大小必须大于0") Integer size) {
+                                               @Min(value = 1, message = "页面大小必须大于0") Integer size) {
         if (search.equals("")) {
             return BaseResponse.success(movieService.queryAll(page, size));
         }

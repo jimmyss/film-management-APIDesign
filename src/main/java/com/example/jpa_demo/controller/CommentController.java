@@ -38,7 +38,7 @@ public class CommentController {
             @RequestParam(required = false, defaultValue = "0")
             @Min(value = 0, message = "页码必须大于等于 0") Integer page,
             @RequestParam(required = false, defaultValue = "10")
-            @Min(value = 0, message = "页面大小必须大于0") Integer size
+            @Min(value = 1, message = "页面大小必须大于0") Integer size
     ) {//获取某电影的评论
         if (movieService.findById(movieId).isEmpty()) {
             return BaseResponse.error(10001, "电影不存在");
