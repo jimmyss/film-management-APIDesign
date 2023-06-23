@@ -1,6 +1,8 @@
 package com.example.jpa_demo.vo;
 
 import jakarta.annotation.Nullable;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
@@ -17,8 +19,12 @@ import lombok.Data;
 public class CommentVO {
     @NotNull(message = "必须填电影id")
     private Integer movieId;
-    @Nullable
+
+    @NotNull(message = "必须填评分")
+    @Min(value = 0, message = "评分必须大于0")
+    @Max(value = 10, message = "评分必须小于10")
     private Float rate;
+
     @Nullable
     private String comment;
 }

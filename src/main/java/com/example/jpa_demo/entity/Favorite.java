@@ -14,6 +14,6 @@ public class Favorite {
     @Column(name = "user_id")
     private Integer userId;
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "movie_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "movie_id", referencedColumnName = "id", insertable = true, updatable = false)
     private Movie movie;
 }
