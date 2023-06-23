@@ -9,6 +9,7 @@ import com.example.jpa_demo.vo.CommentVO;
 import jakarta.validation.constraints.Min;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,6 +26,7 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/api/comments")
+@Validated
 public class CommentController {
 
     @Autowired
@@ -50,17 +52,17 @@ public class CommentController {
     @DeleteMapping("/{id}")
     public BaseResponse<String> deleteByMovieId(@PathVariable(value = "id") Integer movieId) {
         String id = UserInfo.get("id");
-        Optional<Comment> comment = commentService.getCommentsByUserIdAndMovieId(Integer.valueOf(id), movieId);
+        List<Comment> comment = commentService.getCommentsByUserIdAndId(Integer.valueOf(id), movieId);
         if (comment.isEmpty()) {
             return BaseResponse.error(10004, "评论不存在");
         }
-        commentService.deleteCommentByUserIdAndMovieId(Integer.valueOf(id), movieId);
+        commentService.deleteCommentByUserIdAndId(Integer.valueOf(id), movieId);
         return BaseResponse.success("删除成功");
     }
 
 
     @PostMapping("")
-    public BaseResponse<List<Comment>> commentAndRateOnMovie(@RequestBody CommentVO comment) {
+    public BaseResponse<List<Comment>> commentAndRateOnMovie(@RequestBody @Validated CommentVO comment) {
         String id = UserInfo.get("id");
         if (movieService.findById(comment.getMovieId()).isEmpty()) {
             return BaseResponse.error(10001, "电影不存在");

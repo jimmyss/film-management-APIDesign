@@ -10,7 +10,8 @@ import java.util.Optional;
 
 
 public interface CommentRepository extends JpaRepository<Comment, Integer> {
-    Optional<Comment> findCommentByUserIdAndMovieId(Integer userId, Integer movieId);
+    List<Comment> findCommentByUserIdAndId(Integer userId, Integer Id);
+    List<Comment> findCommentByUserIdAndMovieId(Integer userId, Integer movieId);
     Page<Comment> findCommentsByMovieId(Integer movieId, Pageable pageable);
 
 }

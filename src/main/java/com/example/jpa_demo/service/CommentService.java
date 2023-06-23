@@ -8,9 +8,11 @@ import org.springframework.data.domain.Page;
 
 public interface CommentService {
     Page<Comment> getCommentByMovieId(Integer movieId, Integer page, Integer size);
-    Optional<Comment> getCommentsByUserIdAndMovieId(Integer userId, Integer movieId);
+    List<Comment> getCommentsByUserIdAndId(Integer userId, Integer id);
 
-    boolean deleteCommentByUserIdAndMovieId(Integer userId, Integer movieId);
+    List<Comment> getCommentsByUserIdAndMovieId(Integer userId, Integer movieId);
+
+    boolean deleteCommentByUserIdAndId(Integer userId, Integer id);
 
     List<Comment> addOrModifyComment(Comment comment);
 
