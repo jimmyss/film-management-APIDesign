@@ -21,7 +21,7 @@ public class User implements Serializable {
     @Column(name="password")
     private String password;
     @Column(name = "role")
-    private Integer role;
+    private Integer role = 0;
 
     public Integer getId() {
         return user_id;

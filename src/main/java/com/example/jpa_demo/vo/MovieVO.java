@@ -35,4 +35,19 @@ public class MovieVO {
 
     @NotEmpty(message = "缺少标题")
     private String title;
+
+    @Override
+    public String toString(){
+        return "{" +
+                "\"imdbId\":\"" + imdbId + '"' +
+                ", \"originalLanguage\":\"" + originalLanguage + '"' +
+                ", \"overview\":\"" + overview + '"' +
+                ", \"popularity\":" + popularity +
+                ", \"posterPath\":\"" + posterPath + '"' +
+                ", \"releaseDate\":\"" + releaseDate + '"' +
+                ", \"revenue\":" + revenue +
+                ", \"runtime\":" + runtime +
+                ", \"title\":\"" + title + '"' +
+                '}';
+    }
 }
