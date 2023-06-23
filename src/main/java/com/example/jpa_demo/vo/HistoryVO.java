@@ -11,5 +11,5 @@ import java.time.LocalDateTime;
 @Data
 public class HistoryVO {
     @NotNull(message = "不能没有电影信息")
-    private int movieId;
+    private Integer movieId;
 }

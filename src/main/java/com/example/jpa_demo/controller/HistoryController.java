@@ -6,7 +6,6 @@ import com.example.jpa_demo.entity.History;
 import com.example.jpa_demo.service.HistoryServiceImpl;
 import com.example.jpa_demo.service.MovieServiceImpl;
 import com.example.jpa_demo.vo.HistoryVO;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Validated
 @RestController
 @RequestMapping("/api/histories")
 public class HistoryController {
@@ -41,18 +39,18 @@ public class HistoryController {
     }
 
     @PostMapping("")
-    public BaseResponse<History> add(@Valid @RequestBody HistoryVO history1) {
+    public BaseResponse<History> add(@RequestBody @Validated HistoryVO historyVO) {
         String id = UserInfo.get("id");
-        if (movieService.queryOverviewById(history1.getMovieId()).isEmpty()) {
+        if (movieService.queryOverviewById(historyVO.getMovieId()).isEmpty()) {
             return BaseResponse.error(10001, "电影不存在");
         }
-        List<History> userHis = historyService.listByUserIdAndMovieId(Integer.valueOf(id), history1.getMovieId());
+        List<History> userHis = historyService.listByUserIdAndMovieId(Integer.valueOf(id), historyVO.getMovieId());
         if (!userHis.isEmpty()) {
             //如果已经有了一条收藏记录，跟新时间戳
             return BaseResponse.success(historyService.update(userHis.get(0)));
         }
         History history = new History();
-        history.setMovieId(history1.getMovieId());
+        history.setMovieId(historyVO.getMovieId());
         history.setUserId(Integer.valueOf(id));
         return BaseResponse.success(historyService.add(history));
     }

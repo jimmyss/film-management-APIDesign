@@ -27,8 +27,4 @@ public class CommentControllerTest {
     @Autowired
     private MockMvc mockMvc;
     private String token;
-
-    @BeforeEach
-
-
 }
