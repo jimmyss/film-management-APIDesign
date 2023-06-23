@@ -27,7 +27,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    BaseResponse register(@RequestBody UserRegisterVO userRegisterVO) {
+    BaseResponse register(@RequestBody @Validated UserRegisterVO userRegisterVO) {
         System.out.println(userRegisterVO);
         String username = userRegisterVO.getUsername();
         String password = userRegisterVO.getPassword();

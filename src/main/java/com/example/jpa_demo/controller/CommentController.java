@@ -41,9 +41,6 @@ public class CommentController {
             @Min(value = 1, message = "Page size should be a positive number") Integer size
     ) {//获取某电影的评论
         Page<Comment> comment = commentService.getCommentByMovieId(movieId, page, size);
-        if (comment.isEmpty()) {
-            return BaseResponse.error(10004, "该电影暂无评论");
-        }
         return BaseResponse.success(comment);
     }
 
@@ -62,9 +59,6 @@ public class CommentController {
     @PostMapping("")
     public BaseResponse commentAndRateOnMovie(@RequestBody CommentVO comment) {
         String id = UserInfo.get("id");
-        if (comment.getComment() == null && comment.getRate() == null) {
-            return BaseResponse.error(10005, "评论和评分不能同时为空");
-        }
         if (movieService.findById(comment.getMovieId()).isEmpty()) {
             return BaseResponse.error(10001, "电影不存在");
         }

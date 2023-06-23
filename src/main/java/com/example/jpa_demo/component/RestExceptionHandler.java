@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,7 +24,7 @@ public class RestExceptionHandler {
      * @param e the e
      * @return ResultData
      */
-    @ExceptionHandler(value = {BindException.class, ValidationException.class, MethodArgumentNotValidException.class})
+    @ExceptionHandler(value = {BindException.class, ValidationException.class, MethodArgumentNotValidException.class, MissingServletRequestParameterException.class})
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public BaseResponse<String> exception(Exception e) {
         BaseResponse<String> resp = null;
@@ -46,6 +47,9 @@ public class RestExceptionHandler {
                     .map(ObjectError::getDefaultMessage)
                     .collect(Collectors.joining("; "))
             );
+        } else if (e instanceof MissingServletRequestParameterException ex) {
+            // MissingServletRequestParameterException
+            resp = BaseResponse.error(ex.getMessage());
         }
 
         return resp;
