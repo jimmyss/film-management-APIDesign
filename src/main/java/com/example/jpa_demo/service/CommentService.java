@@ -4,9 +4,10 @@ import java.util.List;
 import java.util.Optional;
 
 import com.example.jpa_demo.entity.Comment;
+import org.springframework.data.domain.Page;
 
 public interface CommentService {
-    List<Comment> getCommentByMovieId(Integer movieId);
+    Page<Comment> getCommentByMovieId(Integer movieId, Integer page, Integer size);
     Optional<Comment> getCommentsByUserIdAndMovieId(Integer userId, Integer movieId);
 
     boolean deleteCommentByUserIdAndMovieId(Integer userId, Integer movieId);

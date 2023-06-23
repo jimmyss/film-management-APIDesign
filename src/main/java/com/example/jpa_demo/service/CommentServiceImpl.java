@@ -4,6 +4,9 @@ import com.example.jpa_demo.component.BaseResponse;
 import com.example.jpa_demo.entity.Comment;
 import com.example.jpa_demo.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.swing.text.html.Option;
@@ -25,8 +28,9 @@ public class CommentServiceImpl implements CommentService{
     @Autowired
     private CommentRepository commentRepository;
     @Override
-    public List<Comment> getCommentByMovieId(Integer movieId) {
-        List<Comment> comments=commentRepository.findCommentsByMovieId(movieId);
+    public Page<Comment> getCommentByMovieId(Integer movieId, Integer page, Integer size) {
+        Pageable pageable= PageRequest.of(page, size);
+        Page<Comment> comments=commentRepository.findCommentsByMovieId(movieId, pageable);
         return comments;
     }
 

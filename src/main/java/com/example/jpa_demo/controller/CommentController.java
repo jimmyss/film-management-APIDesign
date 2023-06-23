@@ -6,7 +6,9 @@ import com.example.jpa_demo.entity.Comment;
 import com.example.jpa_demo.service.CommentServiceImpl;
 import com.example.jpa_demo.service.MovieServiceImpl;
 import com.example.jpa_demo.vo.CommentVO;
+import jakarta.validation.constraints.Min;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,8 +33,14 @@ public class CommentController {
     private MovieServiceImpl movieService;
 
     @GetMapping("")
-    public BaseResponse<List<Comment>> getMovieComments(@RequestParam Integer movieId) {//获取某用户对某电影的评论
-        List<Comment> comment = commentService.getCommentByMovieId(movieId);
+    public BaseResponse<Page<Comment>> getMovieComments(
+            @RequestParam Integer movieId,
+            @RequestParam(required = false, defaultValue = "0")
+            @Min(value = 0, message = "Page number should be a positive number or zero") Integer page,
+            @RequestParam(required = false, defaultValue = "10")
+            @Min(value = 1, message = "Page size should be a positive number") Integer size
+    ) {//获取某电影的评论
+        Page<Comment> comment = commentService.getCommentByMovieId(movieId, page, size);
         if (comment.isEmpty()) {
             return BaseResponse.error(10004, "该电影暂无评论");
         }
