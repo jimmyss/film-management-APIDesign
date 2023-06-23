@@ -6,10 +6,13 @@ import com.example.jpa_demo.entity.Comment;
 import com.example.jpa_demo.service.CommentServiceImpl;
 import com.example.jpa_demo.service.MovieServiceImpl;
 import com.example.jpa_demo.vo.CommentVO;
+import jakarta.validation.constraints.Min;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @projectName: apidesign
@@ -29,12 +32,17 @@ public class CommentController {
     @Autowired
     private MovieServiceImpl movieService;
 
-    @GetMapping("/{id}")
-    public BaseResponse<List<Comment>> getComment(@PathVariable(value = "id") Integer movieId) {
-        String id = UserInfo.get("id");
-        List<Comment> comment = commentService.getCommentByUserIdAndMovieId(Integer.valueOf(id), movieId);
+    @GetMapping("")
+    public BaseResponse<Page<Comment>> getMovieComments(
+            @RequestParam Integer movieId,
+            @RequestParam(required = false, defaultValue = "0")
+            @Min(value = 0, message = "Page number should be a positive number or zero") Integer page,
+            @RequestParam(required = false, defaultValue = "10")
+            @Min(value = 1, message = "Page size should be a positive number") Integer size
+    ) {//获取某电影的评论
+        Page<Comment> comment = commentService.getCommentByMovieId(movieId, page, size);
         if (comment.isEmpty()) {
-            return BaseResponse.error(10004, "评论不存在");
+            return BaseResponse.error(10004, "该电影暂无评论");
         }
         return BaseResponse.success(comment);
     }
@@ -42,23 +50,14 @@ public class CommentController {
     @DeleteMapping("/{id}")
     public BaseResponse deleteByMovieId(@PathVariable(value = "id") Integer movieId) {
         String id = UserInfo.get("id");
-        List<Comment> comment = commentService.getCommentByUserIdAndMovieId(Integer.valueOf(id), movieId);
-        if (comment.isEmpty()) {
+        Optional<Comment> comment = commentService.getCommentsByUserIdAndMovieId(Integer.valueOf(id), movieId);
+        if (!comment.isPresent()) {
             return BaseResponse.error(10004, "评论不存在");
         }
         commentService.deleteCommentByUserIdAndMovieId(Integer.valueOf(id), movieId);
         return BaseResponse.success("删除成功");
     }
 
-    @GetMapping("")
-    public BaseResponse<List<Comment>> getComment() {
-        String id = UserInfo.get("id");
-        List<Comment> comment = commentService.getCommentsByUserId(Integer.valueOf(id));
-        if (comment.isEmpty()) {
-            return BaseResponse.error(10006, "该用户没有评论任何电影");
-        }
-        return BaseResponse.success(comment);
-    }
 
     @PostMapping("")
     public BaseResponse commentAndRateOnMovie(@RequestBody CommentVO comment) {

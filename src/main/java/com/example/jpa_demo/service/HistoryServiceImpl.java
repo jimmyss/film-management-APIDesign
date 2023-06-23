@@ -3,6 +3,9 @@ package com.example.jpa_demo.service;
 import com.example.jpa_demo.entity.History;
 import com.example.jpa_demo.repository.HistoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -14,15 +17,16 @@ public class HistoryServiceImpl implements HistoryService{
     @Override
     public History add(History history) {
         History history1 = new History();
-        history1.setUser_id(history.getUser_id());
-        history1.setMovie_id(history.getMovie_id());
+        history1.setUserId(history.getUserId());
+        history1.setMovieId(history.getMovieId());
         history1.setTime(LocalDateTime.now());
         return historyRepository.save(history1);
     }
 
     @Override
-    public List<History> listAll(Integer userId) {
-        return historyRepository.queryHistoryByUser_id(userId);
+    public Page<History> listAll(Integer userId, Integer page, Integer size) {
+        Pageable pageable= PageRequest.of(page, size);
+        return historyRepository.findByUserId(userId, pageable);
     }
 
     @Override

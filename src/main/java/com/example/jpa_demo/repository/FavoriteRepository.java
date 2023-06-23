@@ -12,8 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 public interface FavoriteRepository extends JpaRepository<Favorite, Integer> {
-    @Query(value = "select * from add_favorite where user_id = ?", nativeQuery = true)
-    List<Favorite> queryFavByUser_id(Integer userId);
+    Page<Favorite> findFavoritesByUserId(Integer userId, Pageable pageable);
 
     Page<Favorite> findByUserId(Integer userId, Pageable pageable);
 

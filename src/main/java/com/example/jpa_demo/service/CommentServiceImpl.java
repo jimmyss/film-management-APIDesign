@@ -4,6 +4,9 @@ import com.example.jpa_demo.component.BaseResponse;
 import com.example.jpa_demo.entity.Comment;
 import com.example.jpa_demo.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.swing.text.html.Option;
@@ -25,15 +28,16 @@ public class CommentServiceImpl implements CommentService{
     @Autowired
     private CommentRepository commentRepository;
     @Override
-    public List<Comment> getCommentByUserIdAndMovieId(Integer userId, Integer movieId) {
-        Optional<Comment> comment=commentRepository.findCommentByUserIdAndMovieId(userId, movieId);
-        if(!comment.isPresent()){
-            //如果评论不存在
-            return new ArrayList<>();
-        }
-        List<Comment> finalComment=new ArrayList<>();
-        finalComment.add(comment.get());
-        return finalComment;
+    public Page<Comment> getCommentByMovieId(Integer movieId, Integer page, Integer size) {
+        Pageable pageable= PageRequest.of(page, size);
+        Page<Comment> comments=commentRepository.findCommentsByMovieId(movieId, pageable);
+        return comments;
+    }
+
+    @Override
+    public Optional<Comment> getCommentsByUserIdAndMovieId(Integer userId, Integer movieId) {
+        Optional<Comment> comments=commentRepository.findCommentByUserIdAndMovieId(userId, movieId);
+        return comments;
     }
 
     @Override
@@ -61,15 +65,5 @@ public class CommentServiceImpl implements CommentService{
         List<Comment> comments=new ArrayList<>();
         comments.add(comment);
         return comments;
-    }
-
-    @Override
-    public void getCommentNumByMovieId(Integer movieId) {
-
-    }
-
-    @Override
-    public List<Comment> getCommentsByUserId(Integer userId){
-        return commentRepository.findCommentsByUserId(userId);
     }
 }

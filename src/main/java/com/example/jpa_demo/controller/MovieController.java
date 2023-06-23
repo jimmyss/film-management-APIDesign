@@ -17,12 +17,6 @@ public class MovieController {
     @Autowired
     private MovieServiceImpl movieService;
 
-    @GetMapping("/{id}")
-    public BaseResponse<List<Movie>> queryById(@PathVariable Integer id) {
-        System.out.println(id);
-        return BaseResponse.success(movieService.queryOverviewById(id));
-    }
-
     @DeleteMapping("/{id}")
     public BaseResponse deleteById(@PathVariable Integer id) {
         if (!UserInfo.get("role").equals("admin")) {
@@ -31,6 +25,13 @@ public class MovieController {
         movieService.deleteById(id);
         return BaseResponse.success("删除成功");
     }
+
+    @GetMapping("/{id}")
+    public BaseResponse<List<Movie>> queryById(@PathVariable Integer id){
+        System.out.println(id);
+        return BaseResponse.success(movieService.queryOverviewById(id));
+    }
+
 
     @PostMapping("")
     public BaseResponse addMovie(@RequestBody Movie movie) {
