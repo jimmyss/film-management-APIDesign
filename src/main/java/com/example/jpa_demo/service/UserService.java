@@ -47,29 +47,20 @@ public class UserService {
         return BaseResponse.success(map);
     }
 
-    public BaseResponse<Map<String, String>> register(String username, String password) {
-        //md5加密储存
-        String plainPassword = password;
-        String ciphertext = DigestUtils.md5DigestAsHex(plainPassword.getBytes());
-        User user1 = userRepository.findUserByUsernameAndPassword(username, ciphertext);
+    public BaseResponse<String> register(String username, String password) {
+        User user1 = userRepository.findUserByUsername(username);
 
         //没查到返回登录失败
         if(user1 != null) {
-            return BaseResponse.error("已有相同账号");
-        }
-
-
-        User user = new User(username, ciphertext);
-        try {
-            userRepository.save(user);
-        } catch (Exception e) {
             return BaseResponse.error("该账号已被注册");
         }
 
-        var res = new HashMap<String, String>();
-        // token生成
-        var map = new LinkedHashMap<String, String>();
-        map.put("status", "ok");
-        return BaseResponse.success(res);
+        //md5加密储存
+        String plainPassword = password;
+        String ciphertext = DigestUtils.md5DigestAsHex(plainPassword.getBytes());
+        User user = new User(username, ciphertext);
+        userRepository.save(user);
+
+        return BaseResponse.success("注册成功");
     }
 }
