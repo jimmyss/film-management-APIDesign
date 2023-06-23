@@ -13,6 +13,7 @@ public class Favorite {
     private Integer id;
     @Column(name = "user_id")
     private Integer userId;
-    @Column(name = "movie_id")
-    private Integer movieId;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "movie_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private Movie movie;
 }
