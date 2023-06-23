@@ -45,10 +45,10 @@ public class CommentController {
     }
 
     @DeleteMapping("/{id}")
-    public BaseResponse deleteByMovieId(@PathVariable(value = "id") Integer movieId) {
+    public BaseResponse<String> deleteByMovieId(@PathVariable(value = "id") Integer movieId) {
         String id = UserInfo.get("id");
         Optional<Comment> comment = commentService.getCommentsByUserIdAndMovieId(Integer.valueOf(id), movieId);
-        if (!comment.isPresent()) {
+        if (comment.isEmpty()) {
             return BaseResponse.error(10004, "评论不存在");
         }
         commentService.deleteCommentByUserIdAndMovieId(Integer.valueOf(id), movieId);
@@ -57,7 +57,7 @@ public class CommentController {
 
 
     @PostMapping("")
-    public BaseResponse commentAndRateOnMovie(@RequestBody CommentVO comment) {
+    public BaseResponse<List<Comment>> commentAndRateOnMovie(@RequestBody CommentVO comment) {
         String id = UserInfo.get("id");
         if (movieService.findById(comment.getMovieId()).isEmpty()) {
             return BaseResponse.error(10001, "电影不存在");
