@@ -9,8 +9,10 @@ import com.example.jpa_demo.util.JwtToken;
 import com.example.jpa_demo.vo.FavoriteVO;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,9 +27,14 @@ public class FavController {
     private MovieServiceImpl movieService;
 
     @GetMapping ("")
-    public BaseResponse<List<Favorite>> FavoriteList(@RequestHeader("Authorization") String tokenBearer){
+    public BaseResponse<Page<Favorite>> FavoriteList(
+            @RequestParam(required = false, defaultValue = "0")
+            @Min(value = 0, message = "Page number should be a positive number or zero") Integer page,
+            @RequestParam(required = false, defaultValue = "10")
+            @Min(value = 1, message = "Page size should be a positive number") Integer size
+    ){
         String id = UserInfo.get("id");
-        return BaseResponse.success(favoriteService.listAll(Integer.valueOf(id)));
+        return BaseResponse.success(favoriteService.listAll(Integer.valueOf(id), page, size));
     }
 
     @DeleteMapping("/{id}")

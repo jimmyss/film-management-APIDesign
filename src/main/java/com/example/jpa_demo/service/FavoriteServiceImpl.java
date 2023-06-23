@@ -3,6 +3,9 @@ package com.example.jpa_demo.service;
 import com.example.jpa_demo.entity.Favorite;
 import com.example.jpa_demo.repository.FavoriteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,8 +22,9 @@ public class FavoriteServiceImpl implements FavoriteService{
         return favoriteRepository.save(favorite1);
     }
     @Override
-    public List<Favorite> listAll(Integer userId){
-        return favoriteRepository.queryFavByUser_id(userId);
+    public Page<Favorite> listAll(Integer userId, Integer page, Integer size){
+        Pageable pageable= PageRequest.of(page, size);
+        return favoriteRepository.findFavoritesByUserId(userId, pageable);
     }
     public int countAll(Integer movieId){
         return favoriteRepository.queryFavByMovie_id(movieId).size();

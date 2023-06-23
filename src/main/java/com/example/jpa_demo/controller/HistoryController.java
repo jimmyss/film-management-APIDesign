@@ -7,7 +7,9 @@ import com.example.jpa_demo.service.HistoryServiceImpl;
 import com.example.jpa_demo.service.MovieServiceImpl;
 import com.example.jpa_demo.vo.HistoryVO;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,9 +25,14 @@ public class HistoryController {
     private MovieServiceImpl movieService;
 
     @GetMapping("")
-    public BaseResponse<List<History>> getHistoryList() {
+    public BaseResponse<Page<History>> getHistoryList(
+            @RequestParam(required = false, defaultValue = "0")
+            @Min(value = 0, message = "Page number should be a positive number or 0") Integer page,
+            @RequestParam(required = false, defaultValue = "10")
+            @Min(value = 0, message = "Page size should be a positive number") Integer size
+    ) {
         String id = UserInfo.get("id");
-        return BaseResponse.success(historyService.listAll(Integer.valueOf(id)));
+        return BaseResponse.success(historyService.listAll(Integer.valueOf(id), page, size));
     }
 
     @DeleteMapping("/{id}")
@@ -45,8 +52,8 @@ public class HistoryController {
             return BaseResponse.success(historyService.update(userHis.get(0)));
         }
         History history = new History();
-        history.setMovie_id(history1.getMovieId());
-        history.setUser_id(Integer.valueOf(id));
+        history.setMovieId(history1.getMovieId());
+        history.setUserId(Integer.valueOf(id));
         return BaseResponse.success(historyService.add(history));
     }
 
