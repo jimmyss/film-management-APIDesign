@@ -9,7 +9,6 @@ import java.util.Optional;
 
 public interface CommentRepository extends JpaRepository<Comment, Integer> {
     Optional<Comment> findCommentByUserIdAndMovieId(Integer userId, Integer movieId);
-
-    List<Comment> findCommentsByUserId(Integer userId);
+    List<Comment> findCommentsByMovieId(Integer movieId);
 
 }

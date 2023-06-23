@@ -6,13 +6,12 @@ import java.util.Optional;
 import com.example.jpa_demo.entity.Comment;
 
 public interface CommentService {
-    List<Comment> getCommentByUserIdAndMovieId(Integer userId, Integer movieId);
+    List<Comment> getCommentByMovieId(Integer movieId);
+    Optional<Comment> getCommentsByUserIdAndMovieId(Integer userId, Integer movieId);
 
     boolean deleteCommentByUserIdAndMovieId(Integer userId, Integer movieId);
 
     List<Comment> addOrModifyComment(Comment comment);
 
-    void getCommentNumByMovieId(Integer movieId);
 
-    List<Comment> getCommentsByUserId(Integer userId);
 }

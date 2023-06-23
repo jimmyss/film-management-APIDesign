@@ -25,15 +25,15 @@ public class CommentServiceImpl implements CommentService{
     @Autowired
     private CommentRepository commentRepository;
     @Override
-    public List<Comment> getCommentByUserIdAndMovieId(Integer userId, Integer movieId) {
-        Optional<Comment> comment=commentRepository.findCommentByUserIdAndMovieId(userId, movieId);
-        if(!comment.isPresent()){
-            //如果评论不存在
-            return new ArrayList<>();
-        }
-        List<Comment> finalComment=new ArrayList<>();
-        finalComment.add(comment.get());
-        return finalComment;
+    public List<Comment> getCommentByMovieId(Integer movieId) {
+        List<Comment> comments=commentRepository.findCommentsByMovieId(movieId);
+        return comments;
+    }
+
+    @Override
+    public Optional<Comment> getCommentsByUserIdAndMovieId(Integer userId, Integer movieId) {
+        Optional<Comment> comments=commentRepository.findCommentByUserIdAndMovieId(userId, movieId);
+        return comments;
     }
 
     @Override
@@ -61,15 +61,5 @@ public class CommentServiceImpl implements CommentService{
         List<Comment> comments=new ArrayList<>();
         comments.add(comment);
         return comments;
-    }
-
-    @Override
-    public void getCommentNumByMovieId(Integer movieId) {
-
-    }
-
-    @Override
-    public List<Comment> getCommentsByUserId(Integer userId){
-        return commentRepository.findCommentsByUserId(userId);
     }
 }

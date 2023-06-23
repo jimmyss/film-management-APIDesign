@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @projectName: apidesign
@@ -29,12 +30,11 @@ public class CommentController {
     @Autowired
     private MovieServiceImpl movieService;
 
-    @GetMapping("/{id}")
-    public BaseResponse<List<Comment>> getComment(@PathVariable(value = "id") Integer movieId) {
-        String id = UserInfo.get("id");
-        List<Comment> comment = commentService.getCommentByUserIdAndMovieId(Integer.valueOf(id), movieId);
+    @GetMapping("")
+    public BaseResponse<List<Comment>> getMovieComments(@RequestParam Integer movieId) {//获取某用户对某电影的评论
+        List<Comment> comment = commentService.getCommentByMovieId(movieId);
         if (comment.isEmpty()) {
-            return BaseResponse.error(10004, "评论不存在");
+            return BaseResponse.error(10004, "该电影暂无评论");
         }
         return BaseResponse.success(comment);
     }
@@ -42,23 +42,14 @@ public class CommentController {
     @DeleteMapping("/{id}")
     public BaseResponse deleteByMovieId(@PathVariable(value = "id") Integer movieId) {
         String id = UserInfo.get("id");
-        List<Comment> comment = commentService.getCommentByUserIdAndMovieId(Integer.valueOf(id), movieId);
-        if (comment.isEmpty()) {
+        Optional<Comment> comment = commentService.getCommentsByUserIdAndMovieId(Integer.valueOf(id), movieId);
+        if (!comment.isPresent()) {
             return BaseResponse.error(10004, "评论不存在");
         }
         commentService.deleteCommentByUserIdAndMovieId(Integer.valueOf(id), movieId);
         return BaseResponse.success("删除成功");
     }
 
-    @GetMapping("")
-    public BaseResponse<List<Comment>> getComment() {
-        String id = UserInfo.get("id");
-        List<Comment> comment = commentService.getCommentsByUserId(Integer.valueOf(id));
-        if (comment.isEmpty()) {
-            return BaseResponse.error(10006, "该用户没有评论任何电影");
-        }
-        return BaseResponse.success(comment);
-    }
 
     @PostMapping("")
     public BaseResponse commentAndRateOnMovie(@RequestBody CommentVO comment) {
