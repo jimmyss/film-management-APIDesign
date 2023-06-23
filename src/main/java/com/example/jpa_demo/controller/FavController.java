@@ -27,12 +27,10 @@ public class FavController {
     private MovieServiceImpl movieService;
 
     @GetMapping ("")
-    public BaseResponse<Page<Favorite>> FavoriteList(
-            @RequestParam(required = false, defaultValue = "0")
-            @Min(value = 0, message = "Page number should be a positive number or zero") Integer page,
-            @RequestParam(required = false, defaultValue = "10")
-            @Min(value = 1, message = "Page size should be a positive number") Integer size
-    ){
+    public BaseResponse<Page<Favorite>> FavoriteList(@RequestParam(required = false, defaultValue = "0")
+                                                     @Min(value = 0, message = "Page number should be a positive number or zero") Integer page,
+                                                     @RequestParam(required = false, defaultValue = "10")
+                                                     @Min(value = 1, message = "Page size should be a positive number") Integer size){
         String id = UserInfo.get("id");
         return BaseResponse.success(favoriteService.listAll(Integer.valueOf(id), page, size));
     }
@@ -54,17 +52,18 @@ public class FavController {
 
     @PostMapping("")
     public BaseResponse<Favorite> addFav(@RequestHeader("Authorization") String tokenBearer, @Valid @RequestBody FavoriteVO favoriteVO) {
-        String id = UserInfo.get("id");
-        String token = tokenBearer.substring(7,  tokenBearer.length());
-        if(movieService.queryOverviewById(favoriteVO.getMovieId()).isEmpty()){
+        String userId = UserInfo.get("id");
+
+        var movieList = movieService.queryOverviewById(favoriteVO.getMovieId());
+        if(movieList.isEmpty()){
             return BaseResponse.error(10003, "电影不存在");
         }
-        if(favoriteService.listByUserIdAndMovieId(Integer.valueOf(id), favoriteVO.getMovieId()).size() != 0){
+        if(favoriteService.listByUserIdAndMovieId(Integer.valueOf(userId), favoriteVO.getMovieId()).size() != 0){
             return BaseResponse.error(10002, "收藏已存在，无需添加");
         }
         Favorite favorite = new Favorite();
-        favorite.setMovieId(favoriteVO.getMovieId());
-        favorite.setUserId(Integer.valueOf(id));
+        favorite.setMovie(movieList.get(0));
+        favorite.setUserId(Integer.valueOf(userId));
         return BaseResponse.success(favoriteService.add(favorite));
     }
 

@@ -18,14 +18,16 @@ public class FavoriteServiceImpl implements FavoriteService{
     public Favorite add(Favorite favorite){
         Favorite favorite1 = new Favorite();
         favorite1.setUserId(favorite.getUserId());
-        favorite1.setMovieId(favorite.getMovieId());
+        favorite1.setMovie(favorite.getMovie());
         return favoriteRepository.save(favorite1);
     }
+
     @Override
     public Page<Favorite> listAll(Integer userId, Integer page, Integer size){
-        Pageable pageable= PageRequest.of(page, size);
-        return favoriteRepository.findFavoritesByUserId(userId, pageable);
+        var pageable = PageRequest.of(page, size);
+        return favoriteRepository.findByUserId(userId, pageable);
     }
+
     public int countAll(Integer movieId){
         return favoriteRepository.queryFavByMovie_id(movieId).size();
     }

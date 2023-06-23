@@ -14,6 +14,8 @@ import java.util.List;
 public interface FavoriteRepository extends JpaRepository<Favorite, Integer> {
     Page<Favorite> findFavoritesByUserId(Integer userId, Pageable pageable);
 
+    Page<Favorite> findByUserId(Integer userId, Pageable pageable);
+
     @Query(value = "select * from add_favorite where movie_id = ?", nativeQuery = true)
     List<Favorite> queryFavByMovie_id(Integer movieId);
 
