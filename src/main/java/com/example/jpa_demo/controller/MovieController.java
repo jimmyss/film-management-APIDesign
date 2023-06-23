@@ -28,7 +28,6 @@ public class MovieController {
 
     @GetMapping("/{id}")
     public BaseResponse<List<Movie>> queryById(@PathVariable Integer id){
-        System.out.println(id);
         return BaseResponse.success(movieService.queryOverviewById(id));
     }
 
