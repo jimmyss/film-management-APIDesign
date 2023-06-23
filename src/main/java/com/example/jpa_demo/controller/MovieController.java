@@ -58,9 +58,9 @@ public class MovieController {
     @GetMapping("")
     public BaseResponse<Page<Movie>> getMovies(@RequestParam(required = false, defaultValue = "") String search,
                                                @RequestParam(required = false, defaultValue = "0")
-                                               @Min(value = 0, message = "Page number should be a positive number or zero") Integer page,
+                                               @Min(value = 0, message = "页码必须大于等于 0") Integer page,
                                                @RequestParam(required = false, defaultValue = "10")
-                                               @Min(value = 1, message = "Page size should be a positive number") Integer size) {
+                                               @Min(value = 0, message = "页面大小必须大于0") Integer size) {
         if (search.equals("")) {
             return BaseResponse.success(movieService.queryAll(page, size));
         }

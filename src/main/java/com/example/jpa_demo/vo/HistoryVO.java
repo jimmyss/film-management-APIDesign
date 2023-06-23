@@ -12,4 +12,11 @@ import java.time.LocalDateTime;
 public class HistoryVO {
     @NotNull(message = "不能没有电影信息")
     private Integer movieId;
+
+    @Override
+    public String toString() {
+        return "{" +
+                "\"movieId\":" + movieId +
+                '}';
+    }
 }

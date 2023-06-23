@@ -31,8 +31,7 @@ public class HistoryServiceImpl implements HistoryService{
 
     @Override
     public int countAll(Integer movieId) {
-        List<History> historyList = historyRepository.queryHistoryByMovie_id(movieId);
-        return historyList.size();
+        return historyRepository.countHistoriesByMovieId(movieId);
     }
 
     @Override
@@ -48,7 +47,7 @@ public class HistoryServiceImpl implements HistoryService{
 
     @Override
     public List<History> listByUserIdAndMovieId(Integer userId, Integer movieId){
-        return historyRepository.queryHistoryByUser_idAndMovie_id(userId, movieId);
+        return historyRepository.findHistoryByUserIdAndMovieId(userId, movieId);
     }
 
     @Override

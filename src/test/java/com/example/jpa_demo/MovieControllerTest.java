@@ -63,6 +63,19 @@ public class MovieControllerTest {
         BaseResponse baseResponse = objectMapper.readValue(response, BaseResponse.class);
         Assertions.assertEquals(20000, baseResponse.getCode());
     }
+    // get movies by passing invalid page number
+    @Test
+    void getMoviesByInvalidPageNumber() throws Exception {
+        MvcResult result = mockMvc.perform(get("/api/movies?page=-1")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+        var response = result.getResponse().getContentAsString(StandardCharsets.UTF_8);
+        ObjectMapper objectMapper = new ObjectMapper();
+        BaseResponse baseResponse = objectMapper.readValue(response, BaseResponse.class);
+        Assertions.assertEquals(-1, baseResponse.getCode());
+        var msg = objectMapper.readValue(objectMapper.writeValueAsString(baseResponse.getMsg()), String.class);
+        Assertions.assertEquals("页码必须大于等于 0", msg);
+    }
     // get movie by id
     @Test
     void getMovieById() throws Exception {

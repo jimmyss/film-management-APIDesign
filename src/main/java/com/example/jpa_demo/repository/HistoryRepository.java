@@ -15,11 +15,7 @@ public interface HistoryRepository extends JpaRepository<History, Integer> {
 
     Page<History> findByUserId(Integer userId, Pageable pageable);
 
-    @Query(value = "select * from has_history where movieId = ?", nativeQuery = true)
-    List<History> queryHistoryByMovie_id(Integer movieId);
+    Integer countHistoriesByMovieId(Integer movieId);
 
-    @Query(value = "select * from has_history where userId=? and movieId=?", nativeQuery = true)
-    List<History> queryHistoryByUser_idAndMovie_id(Integer userId, Integer movieId);
-//    @Query
-//    List<History>   queryHistoryByTime(LocalDateTime time)
+    List<History> findHistoryByUserIdAndMovieId(Integer userId, Integer movieId);
 }
